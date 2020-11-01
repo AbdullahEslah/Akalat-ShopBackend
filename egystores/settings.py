@@ -24,7 +24,7 @@ SECRET_KEY = 'lr2g%2&4666(ghg%&dqhlzcm=f9$5&%q6l*z1+v7vh+khxackr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 
@@ -127,6 +127,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE='whitenoise.django.GzipManifestStaticFilesStorage'
+
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/restaurant/login/'
