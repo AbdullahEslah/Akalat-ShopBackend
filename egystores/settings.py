@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'social_django',
     'oauth2_provider',
     'bootstrap3',
-    'material',
 ]
 
 MIDDLEWARE = [
