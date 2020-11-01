@@ -24,7 +24,7 @@ SECRET_KEY = 'lr2g%2&4666(ghg%&dqhlzcm=f9$5&%q6l*z1+v7vh+khxackr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["whispering-hamlet-67095.herokuapp.com"]
 
 
 
