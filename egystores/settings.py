@@ -130,8 +130,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 
-LOGIN_REDIRECT_URL = 'https://whispering-hamlet-67095.herokuapp.com/'
-LOGIN_URL = 'https://whispering-hamlet-67095.herokuapp.com/restaurant/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/restaurant/login/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -176,10 +176,3 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 SITE_ID = 1
-
-# Force https redirect
-SECURE_SSL_REDIRECT = True
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# Force HTTPS in the final URIs
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
