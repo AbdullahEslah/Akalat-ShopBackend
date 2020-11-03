@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'egystoreapp',
     'rest_framework_social_oauth2',
     'social_django',
-    'social.apps.django_app.default',
+    'social_django.default',
     'oauth2_provider',
     'bootstrap3',
 ]
