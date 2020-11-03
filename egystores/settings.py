@@ -130,8 +130,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/restaurant/login/'
+LOGIN_REDIRECT_URL = 'https://whispering-hamlet-67095.herokuapp.com/'
+LOGIN_URL = 'https://whispering-hamlet-67095.herokuapp.com/restaurant/login/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
