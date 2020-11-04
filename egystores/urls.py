@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^restaurant/order/$',views.restaurant_order, name = 'restaurant-order'),
     url(r'^restaurant/report/$',views.restaurant_report, name = 'restaurant-report'),
 
-    url(r'^api/social/', include('rest_social_auth.urls_token')),
+    url(r'^api/social/', include('rest_framework_social_oauth2.urls')),
 
 
     # /convert-token used for (sign-in/ sign-up)
