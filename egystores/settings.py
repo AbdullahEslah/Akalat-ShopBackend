@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'egystoreapp',
     'rest_framework_social_oauth2',
+    'rest_framework.authtoken',
     'social_django',
     'oauth2_provider',
     'bootstrap3',
