@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from oauth2_provider.models import AccessToken
 
-from egystoreapp.models import Restaurant, Meal, Order, OrderDetails
+from egystoreapp.models import Restaurant, Meal, Order, OrderDetails, Driver
 from egystoreapp.serializers import RestaurantSerializer, MealSerializer, OrderSerializer
 
 
@@ -41,7 +41,7 @@ def customer_add_order(request):
             address
             order_details (json format), example:
                 [{"meal_id": 2, "quantity": 2},{"meal_id": 3, "quantity": 3}]
-            stripe_token
+
 
         return:
             {"status": "success"}
@@ -101,7 +101,19 @@ def customer_get_latest_order(request):
 
     return JsonResponse({"order": order})
 
+def customer_get_driver_location(request):
+    #GET Params: access_token
+    access_token = AccessToken.objects.get(token = request.GET.get("access_token"),
+        expires__gt = timezone.now())
 
+    #Get Customer
+    customer = access_token.user.customer
+
+    #GET driver's location related to this customer's cureent order
+    current_order = Order.objects.filter(customer = customer, status = Order.ONTHEWAY).last()
+    location = current_order.driver.location
+
+    return JsonResponse({"location": location})
 
 #############
 # Restaurant
@@ -219,3 +231,18 @@ def driver_get_revenue(request):
         revenue[day.strftime("%a")] = sum(order.total for order in orders)
 
     return JsonResponse({"revenue": revenue})
+
+# POST - PARAMS :access_token , 'lat', 'lang'
+@csrf_exempt
+def driver_update_location(request):
+    if request.method == "POST":
+        access_token = AccessToken.objects.get(token = request.POST.get("access_token"),
+        expires__gt = timezone.now())
+
+        driver = access_token.user.driver
+
+        # Set location string=> database
+        driver.location = request.POST["location"]
+        driver.save()
+
+        return JsonResponse({"status": "success"})

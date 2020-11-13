@@ -24,7 +24,7 @@ SECRET_KEY = 'lr2g%2&4666(ghg%&dqhlzcm=f9$5&%q6l*z1+v7vh+khxackr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','whispering-hamlet-67095.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework_social_oauth2',
     'social_django',
     'oauth2_provider',
-    'bootstrap3',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -127,23 +127,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/restaurant/login/'
+
+#LOGIN_URL = '/restaurant/login/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-import dj_database_url
-db_form_env = dj_database_url.config()
-DATABASES['default'].update(db_form_env)
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
 
 AUTHENTICATION_BACKENDS = [
 
     'social_core.backends.facebook.FacebookOAuth2',
-
-    'rest_framework_social_oauth2.backends.DjangoOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 
@@ -158,20 +157,18 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '7742368b0f0fc189622fb625c6871a65'
 # Email is not sent by default, to get it, you must request the email permission.
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email'
+    'fields': 'id, name, email, picture.type(large)'
 }
 
 SOCIAL_AUTH_PIPELINE = (
-    'social.pipeline.social_auth.social_details',
-    'social.pipeline.social_auth.social_uid',
-    'social.pipeline.social_auth.auth_allowed',
-    'social.pipeline.social_auth.social_user',
-    'social.pipeline.user.get_username',
-    'social.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
     'egystoreapp.social_auth_pipeline.create_user_by_type',  # <--- set the path to the function
-    'social.pipeline.social_auth.associate_user',
-    'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
 )
-
-SITE_ID = 1

@@ -1,45 +1,45 @@
 {% extends 'restaurant/base.html' %}
 
-{% block page %}
+{% block title %}Meal{% endblock %}
 
-  <div class="panel">
-    <div class="panel-heading bg-blue">
-      <h4 class="panel-title.text-center text-white">Meals</h4>
-    </div>
-    <div class="panel-body">
-      <div class="text-right">
-        <a href="{% url 'restaurant-add-meal' %}" class="btn btn-pink">Add Meal</a>
-        <br/>
-        <br/>
+{% block body %}
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">Meals</h5>
       </div>
+      <div class="card-body">
+        <span class="float-right mb-3">
+          <a href="{% url 'restaurant_add_meal' %}" class="btn btn-black float-right">Add Meal</a>
+        </span>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Short Description</th>
+              <th scope="col">Price</th>
+              <th scope="col">Image</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for meal in meals %}
+            <tr class="align-middle">
+              <th scope="row">{{ meal.id }}</th>
+              <td><a href="{% url 'restaurant_edit_meal' meal.id %}">{{ meal.name }}</a></td>
+              <td>{{ meal.short_description }}</td>
+              <td class="text-right">${{ meal.price }}</td>
+              <td class="text-center">
+                <img src="{{ MEDIA_URL }}{{ meal.image }}" class="rounded" width="50" height="50">
+              </td>
+            </tr>
+            {% endfor %}
 
-      <table class="table table-bordered table-hover table-striped">
-        <thead>
-          <tr class="bg-gray text-white">
-          <th>Id</th>
-          <th> Name</th>
-          <th>Short Description</th>
-          <th>Price</th>
-          <th class="text-center">Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for meal in meals %}
-          <tr>
-            <td scope="row"> {{ meal.id }}</td>
-            <td><a href="{% url 'restaurant-edit-meal' meal.id %}">{{ meal.name }}</a></td>
-            <td>{{ meal.short_description }}</td>
-            <td>{{ meal.price }}</td>
-            <td class="text-center"><img class="img-rounded"
-               src="{{ MEDIA_URL }}{{ meal.image }}" width="50" height="50"></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-
-
-
-  <a href="{% url 'restaurant-add-meal' %}" class="btn btn-pink">Add Meal</a>
+</div>
 {% endblock %}
