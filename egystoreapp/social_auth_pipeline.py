@@ -1,7 +1,9 @@
 # import json # For showing response result in JSON
 from egystoreapp.models import Customer, Driver
 
-def create_user_by_type(backend, user, request, response, *args, **kwargs):
+def create_user_by_type(backend, user, response, *args, **kwargs):
+    request = backend.strategy.request_data()
+    
     if backend.name == 'facebook':
         # print(json.dumps(response)) # For showing response result in JSON
         avatar = 'https://graph.facebook.com/%s/picture?type=large' % response['id']

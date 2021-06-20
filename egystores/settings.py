@@ -24,7 +24,7 @@ SECRET_KEY = 'lr2g%2&4666(ghg%&dqhlzcm=f9$5&%q6l*z1+v7vh+khxackr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['whispering-hamlet-67095.herokuapp.com',"localhost:8000"]
+ALLOWED_HOSTS = [ 'http://127.0.0.1:8000','localhost:8000','localhost','127.0.0.1']
 
 
 
@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'egystoreapp',
-    'rest_framework_social_oauth2',
-    'social_django',
     'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
     'bootstrap4',
 ]
 
@@ -131,18 +131,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
 
-#LOGIN_URL = '/restaurant/login/'
+# LOGIN_URL = '/restaurant/login/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Configure Django App for Heroku.
-# import django_heroku
-# django_heroku.settings(locals())
+ # import django_heroku
+ # django_heroku.settings(locals())
 
 AUTHENTICATION_BACKENDS = [
 
     'social_core.backends.facebook.FacebookOAuth2',
+    'rest_framework_social_oauth2.backends.DjangoOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 
@@ -172,4 +173,4 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
-SITE_ID = 1
+# SITE_ID = 1

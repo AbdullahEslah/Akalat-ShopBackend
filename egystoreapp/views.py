@@ -15,9 +15,7 @@ def home(request):
 # RESTAURANT
 # ==========
 
-
-
-@login_required(login_url="/restaurant/sign-in")
+@login_required(login_url="/restaurant/sign_in/")
 def restaurant_home(request):
     return redirect(restaurant_order)
 
@@ -49,7 +47,7 @@ def restaurant_sign_up(request):
         }
     )
 
-@login_required(login_url="/restaurant/sign-in")
+@login_required(login_url="/restaurant/sign_in/")
 def restaurant_account(request):
     account_form = AccountForm(instance=request.user)
     restaurant_form = RestaurantForm(instance=request.user.restaurant)
@@ -66,12 +64,13 @@ def restaurant_account(request):
         "account_form": account_form,
         "restaurant_form": restaurant_form
     })
-@login_required(login_url="/restaurant/sign-in")
+
+@login_required(login_url="/restaurant/sign_in/")
 def restaurant_meal(request):
     meals = Meal.objects.filter(restaurant=request.user.restaurant).order_by("-id")
     return render(request, 'restaurant/meal.html', {"meals": meals})
 
-@login_required(login_url="/restaurant/sign-in")
+@login_required(login_url="/restaurant/sign_in/")
 def restaurant_add_meal(request):
     meal_form = MealForm()
 
@@ -86,7 +85,7 @@ def restaurant_add_meal(request):
 
     return render(request, 'restaurant/add_meal.html', {"meal_form": meal_form})
 
-@login_required(login_url="/restaurant/sign-in")
+@login_required(login_url="/restaurant/sign_in/")
 def restaurant_edit_meal(request, meal_id):
     meal_form = MealForm(instance = Meal.objects.get(id = meal_id))
 
@@ -100,7 +99,7 @@ def restaurant_edit_meal(request, meal_id):
     return render(request, 'restaurant/edit_meal.html', {"meal_form": meal_form})
 
 
-@login_required(login_url="/restaurant/sign-in")
+@login_required(login_url="/restaurant/sign_in/")
 def restaurant_order(request):
     if request.method == "POST":
         order = Order.objects.get(id=request.POST["id"])
@@ -112,7 +111,12 @@ def restaurant_order(request):
     orders = Order.objects.filter(restaurant = request.user.restaurant).order_by("-id")
     return render(request, 'restaurant/order.html', {"orders": orders})
 
-@login_required(login_url='/restaurant/sign-in/')
+@login_required(login_url="/restaurant/sign_in/")
+def restaurant_transaction(request):
+    return render(request, 'restaurant/transaction.html', {})
+
+
+@login_required(login_url='/restaurant/sign_in/')
 def restaurant_report(request):
     # Calculate revenue and number of order by current week
     from datetime import datetime, timedelta

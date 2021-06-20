@@ -1,4 +1,120 @@
 {% extends 'restaurant/base.html' %}
 
-{% block page %}
+{% block title %}Report{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">Revenue by Week</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="revenueChart" height="100"></canvas>
+        <script>
+          var ctx = document.getElementById('revenueChart').getContext('2d');
+          var revenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+              datasets: [{
+                label: '$ Amount',
+                data: {{ revenue }},
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+                        }
+                    });
+        </script>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">Top 3 Meals</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="mealsChart" height="215"></canvas>
+        <script>
+          var ctx = document.getElementById('mealsChart').getContext('2d');
+          var mealsChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: {{ meal.labels | safe }},
+          datasets: [{
+            data: {{ meal.data }},
+            backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"]
+                            }]
+                        }
+                    });
+        </script>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">Orders by Week</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="ordersChart" height="100"></canvas>
+        <script>
+          var ctx = document.getElementById('ordersChart').getContext('2d');
+          var ordersChart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+              labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+              datasets: [{
+                label: 'Number of orders',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: {{ orders }}
+          }]
+                        }
+                    });
+        </script>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">Top 3 Drivers</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="driversChart" height="215"></canvas>
+        <script>
+          var ctx = document.getElementById('driversChart').getContext('2d');
+          var driversChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: {{ driver.labels | safe }},
+          datasets: [{
+            data: {{ driver.data }},
+            backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"]
+                                }]
+                            }
+                        });
+        </script>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
