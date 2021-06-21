@@ -7,3 +7,4 @@ psycopg2==2.7.5
 django-rest-framework-social-oauth2==1.1.0
 django-oauth-toolkit
 django-bootstrap4==1.1.1
+django-heroku==0.3.1
